@@ -18,7 +18,6 @@ ANSWERS_PATH = os.path.join(ROOT, 'src', 'data', 'answers.json')
 VALID_GUESSES_PATH = os.path.join(ROOT, 'src', 'data', 'valid-guesses.json')
 
 
-
 def is_form_of(entry: dict) -> bool:
     for sense in entry.get('senses', []):
         tags = sense.get('tags', [])
