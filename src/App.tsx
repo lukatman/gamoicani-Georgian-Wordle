@@ -19,10 +19,13 @@ import {
   type Stats,
 } from './lib/stats'
 
+// Georgian QWERTY physical key → Georgian character mappings (Latin keyboard layout)
+// Shift variants use uppercase key names (e.g. 'W' = Shift+W)
 const PHYSICAL_KEY_MAP: Record<string, string> = {
   q: 'ქ', w: 'წ', e: 'ე', r: 'რ', t: 'ტ', y: 'ყ', u: 'უ', i: 'ი', o: 'ო', p: 'პ',
   a: 'ა', s: 'ს', d: 'დ', f: 'ფ', g: 'გ', h: 'ჰ', j: 'ჯ', k: 'კ', l: 'ლ',
   z: 'ზ', x: 'ხ', c: 'ც', v: 'ვ', b: 'ბ', n: 'ნ', m: 'მ',
+  // Shift variants (e.key is uppercase when shift is held)
   W: 'ჭ', R: 'ღ', T: 'თ', S: 'შ', C: 'ჩ', Z: 'ძ', J: 'ჟ',
 }
 
@@ -31,6 +34,10 @@ const GEORGIAN_CHAR_RE = /^[\u10D0-\u10FF]$/
 const FLIP_STAGGER_MS = 100
 const FLIP_DURATION_MS = 500
 const ROW_FLIP_TOTAL_MS = (WORD_LENGTH - 1) * FLIP_STAGGER_MS + FLIP_DURATION_MS
+/** How long the win/loss toast stays visible (ms). */
+const TOAST_DURATION_MS = 4000
+/** Extra delay after flip ends before opening the stats modal (ms). */
+const STATS_MODAL_DELAY_MS = 4500
 
 const dateKey = getGeorgianDateKey()
 const answer = getDailyWord()
@@ -57,7 +64,7 @@ export default function App() {
   // Auto-clear toast
   useEffect(() => {
     if (!state.toast) return
-    const t = setTimeout(() => dispatch({ type: 'CLEAR_TOAST' }), 1800)
+    const t = setTimeout(() => dispatch({ type: 'CLEAR_TOAST' }), TOAST_DURATION_MS)
     return () => clearTimeout(t)
   }, [state.toast])
 
@@ -78,7 +85,7 @@ export default function App() {
     const updatedStats = recordGame(dateKey, won, guessCount)
     setStats(updatedStats)
 
-    const delay = ROW_FLIP_TOTAL_MS + 800
+    const delay = ROW_FLIP_TOTAL_MS + STATS_MODAL_DELAY_MS
     const t = setTimeout(() => setShowStats(true), delay)
     return () => clearTimeout(t)
   }, [state.status, state.guesses.length])
