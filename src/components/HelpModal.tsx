@@ -33,12 +33,12 @@ export default function HelpModal({ onClose }: HelpModalProps) {
 
           <div className="help-row">
             <span className="help-tile help-tile--correct">ბ</span>
-            <span>ასო <strong>ბ</strong> არის სიტყვაში და სწორ ადგილას.</span>
+            <span>ასო <strong>ბ</strong> არის სიტყვაში და სწორ ადგილასაა.</span>
           </div>
 
           <div className="help-row">
             <span className="help-tile help-tile--present">ა</span>
-            <span>ასო <strong>ა</strong> არის სიტყვაში, მაგრამ არასწორ ადგილას.</span>
+            <span>ასო <strong>ა</strong> არის სიტყვაში, მაგრამ არასწორ ადგილასაა.</span>
           </div>
 
           <div className="help-row">
