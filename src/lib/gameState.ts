@@ -74,13 +74,22 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       const won = word === state.answer
       const lost = !won && newGuesses.length >= MAX_GUESSES
 
+      const WIN_MESSAGES = ['ბრწყინვალეა!', 'შესანიშნავია!', 'კარგია!', 'არაუშავს!', 'ბოლო მომენტში!']
+      let toast = ''
+      if (won) {
+        const msgIdx = Math.min(newGuesses.length - 1, WIN_MESSAGES.length - 1)
+        toast = WIN_MESSAGES[msgIdx]
+      } else if (lost) {
+        toast = state.answer
+      }
+
       return {
         ...state,
         guesses: newGuesses,
         currentInput: '',
         status: won ? 'won' : lost ? 'lost' : 'playing',
         shakingRow: -1,
-        toast: '',
+        toast,
       }
     }
 
