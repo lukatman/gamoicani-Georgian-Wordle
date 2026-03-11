@@ -3,19 +3,20 @@ import { WORD_LENGTH } from '../lib/game'
 import Tile from './Tile'
 
 interface RowProps {
-  /** Letters of the submitted guess with their evaluated statuses. */
   evaluatedLetters?: EvaluatedLetter[]
-  /** In-progress current input (only for the active row). */
   currentInput?: string
-  /** Whether this row is currently shaking (invalid guess). */
   shaking?: boolean
-  /** Whether the tiles in this row have already been revealed. */
   revealed?: boolean
+  won?: boolean
 }
 
-export default function Row({ evaluatedLetters, currentInput = '', shaking = false, revealed = false }: RowProps) {
+export default function Row({ evaluatedLetters, currentInput = '', shaking = false, revealed = false, won = false }: RowProps) {
+  const classes = ['row']
+  if (shaking) classes.push('row--shake')
+  if (won && revealed) classes.push('row--win')
+
   return (
-    <div className={`row${shaking ? ' row--shake' : ''}`}>
+    <div className={classes.join(' ')}>
       {Array.from({ length: WORD_LENGTH }, (_, i) => {
         if (evaluatedLetters) {
           const { letter, status } = evaluatedLetters[i]
