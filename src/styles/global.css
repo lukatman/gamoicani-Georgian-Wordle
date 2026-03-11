@@ -70,6 +70,20 @@ body {
   line-height: 1;
 }
 
+.header__btn--left {
+  left: 16px;
+  right: auto;
+  font-weight: 700;
+  font-size: 1.3rem;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--color-text);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* ─── Game container ───────────────────────────────────────────── */
 .game {
   display: flex;
@@ -208,9 +222,22 @@ body {
 }
 
 /* After flip completes the back face is shown — colour applied to back */
-.tile--correct  .tile__back { background: var(--color-correct); }
-.tile--present  .tile__back { background: var(--color-present); }
-.tile--absent   .tile__back { background: var(--color-absent); }
+.tile--correct  .tile__back { background: var(--color-correct); border-color: var(--color-correct); }
+.tile--present  .tile__back { background: var(--color-present); border-color: var(--color-present); }
+.tile--absent   .tile__back { background: var(--color-absent); border-color: var(--color-absent); }
+
+/* Win bounce — applied to the winning row after reveal */
+.row--win .tile {
+  animation: tile-bounce 0.4s ease calc(var(--tile-index, 0) * 0.08s) forwards;
+}
+
+@keyframes tile-bounce {
+  0%   { transform: translateY(0); }
+  40%  { transform: translateY(-20px); }
+  65%  { transform: translateY(4px); }
+  80%  { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
 
 /* ─── Keyboard ─────────────────────────────────────────────────── */
 .keyboard {
@@ -428,13 +455,32 @@ body {
 }
 
 /* ─── Responsive ────────────────────────────────────────────────── */
+
+/* Fill viewport: push keyboard to bottom */
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+.game {
+  justify-content: space-between;
+}
+
+@media (max-width: 500px) {
+  :root {
+    --tile-size: 54px;
+    --tile-font-size: 1.8rem;
+  }
+}
+
 @media (max-width: 380px) {
   :root {
-    --tile-size: 50px;
-    --tile-font-size: 1.6rem;
+    --tile-size: 46px;
+    --tile-font-size: 1.5rem;
   }
 
-  .key { min-width: 34px; max-width: 34px; height: 50px; font-size: 0.75rem; }
-  .key--wide { min-width: 52px; max-width: 52px; }
-  .key--shift { min-width: 42px; max-width: 42px; }
+  .key { min-width: 30px; max-width: 30px; height: 48px; font-size: 0.72rem; }
+  .key--wide { min-width: 48px; max-width: 48px; }
+  .key--shift { min-width: 38px; max-width: 38px; }
+  .header__title { font-size: 1.4rem; }
 }
