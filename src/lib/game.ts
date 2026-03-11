@@ -1,5 +1,5 @@
 export const WORD_LENGTH = 7
-export const MAX_GUESSES = 6
+export const MAX_GUESSES = 8
 
 export type LetterStatus = 'correct' | 'present' | 'absent' | 'empty'
 
