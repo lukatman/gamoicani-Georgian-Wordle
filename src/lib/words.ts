@@ -1,5 +1,35 @@
-import answers from '../data/answers.json'
-import validGuesses from '../data/valid-guesses.json'
+import { WORD_LENGTH } from './game'
+
+import answers5 from '../data/5_answers.json'
+import answers6 from '../data/6_answers.json'
+import answers7 from '../data/7_answers.json'
+import answers8 from '../data/8_answers.json'
+import answers9 from '../data/9_answers.json'
+
+import validGuesses5 from '../data/5_valid-guesses.json'
+import validGuesses6 from '../data/6_valid-guesses.json'
+import validGuesses7 from '../data/7_valid-guesses.json'
+import validGuesses8 from '../data/8_valid-guesses.json'
+import validGuesses9 from '../data/9_valid-guesses.json'
+
+const ANSWERS_MAP: Record<number, string[]> = {
+  5: answers5,
+  6: answers6,
+  7: answers7,
+  8: answers8,
+  9: answers9,
+}
+
+const VALID_GUESSES_MAP: Record<number, string[]> = {
+  5: validGuesses5,
+  6: validGuesses6,
+  7: validGuesses7,
+  8: validGuesses8,
+  9: validGuesses9,
+}
+
+const answers = ANSWERS_MAP[WORD_LENGTH]
+const validGuesses = VALID_GUESSES_MAP[WORD_LENGTH]
 
 export { answers }
 
