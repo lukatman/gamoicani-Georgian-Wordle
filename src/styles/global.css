@@ -240,6 +240,18 @@ body {
 }
 
 /* ─── Keyboard ─────────────────────────────────────────────────── */
+
+/*
+ * --key-size is derived so that exactly 11 keys + 10 gaps of --key-gap
+ * fit inside the keyboard container on any screen width.
+ * Formula: (keyboard_width - 2*8px_padding - 10*gap) / 11
+ * keyboard_width = min(100vw, 500px)
+ */
+:root {
+  --key-gap:  5px;
+  --key-size: calc((min(100vw, 500px) - 16px - 10 * var(--key-gap)) / 11);
+}
+
 .keyboard {
   display: flex;
   flex-direction: column;
@@ -252,13 +264,14 @@ body {
 .keyboard__row {
   display: flex;
   justify-content: center;
-  gap: 5px;
+  gap: var(--key-gap);
 }
 
 .key {
+  width: var(--key-size);
   height: 58px;
-  min-width: 43px;
-  padding: 0 6px;
+  flex: none;
+  padding: 0 2px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -272,19 +285,14 @@ body {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   transition: background 0.1s ease;
-  flex: 1;
-  max-width: 43px;
 }
 
 .key--wide {
-  min-width: 65px;
-  max-width: 65px;
+  width: calc(var(--key-size) * 1.5);
   font-size: 0.75rem;
 }
 
 .key--shift {
-  min-width: 50px;
-  max-width: 50px;
   font-size: 0.75rem;
 }
 
@@ -479,8 +487,6 @@ body {
     --tile-font-size: 1.5rem;
   }
 
-  .key { min-width: 30px; max-width: 30px; height: 48px; font-size: 0.72rem; }
-  .key--wide { min-width: 48px; max-width: 48px; }
-  .key--shift { min-width: 38px; max-width: 38px; }
+  .key { height: 48px; font-size: 0.72rem; }
   .header__title { font-size: 1.4rem; }
 }
